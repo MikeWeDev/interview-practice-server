@@ -17,4 +17,6 @@ controller - user.controller.ts- createuser function that accpt body of the user
 service - user.service.ts -createuserservice -stiore the user and res the result
 
 --------------------------------------------
+
+
 implemnt 
