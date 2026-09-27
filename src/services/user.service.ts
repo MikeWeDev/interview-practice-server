@@ -35,3 +35,32 @@ export  async function createTaskService(
 });
    return newTask;
 }
+
+export async function updateTaskService(
+  {title,description,status,id,taskid}:
+{
+  title: string;
+  description: string;
+  status: "TODO" | "IN_PROGRESS" | "COMPLETED";
+  id: string;
+  taskid: string;
+} ){
+      const canedit= await task.findOne({
+  _id: taskid,
+  userId: id
+});
+      if(!canedit){
+        throw new Error("user not found as  a owner of that task")
+      }
+
+      const updateTask= await task.findOneAndUpdate({
+        userId:id,
+        _id:taskid
+      },{
+        title,
+        description,
+        status
+      })
+
+  return updateTask
+}

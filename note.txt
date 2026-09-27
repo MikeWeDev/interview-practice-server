@@ -12,3 +12,12 @@ so lets deign the db
                                                try and catch block call the service function
                                                serice page add function that accpt those data verify teh 
                                                user and create teh atsk and reture
+
+-----------------------------------------------------------------------
+
+ db desing - done 
+ api design - patch /task/:id
+ db impmnetion - route 
+                 controller - accpt the updated values from req.body and the id 
+                            - verify the datas
+                            -call the service
