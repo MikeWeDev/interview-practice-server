@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import createUserService from "../services/user.service";
+import {createUserService,createTaskService} from "../services/user.service";
 
-export default async function createUserController(req: Request, res: Response){
+export  async function createUserController(req: Request, res: Response){
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -23,3 +23,27 @@ export default async function createUserController(req: Request, res: Response){
     });
   }
 };
+
+
+export  async function createTaskController(req: Request, res: Response) {
+  try{
+    const { title, description, status} = req.body;
+          const {id}= req.params;
+          if (!title || !status) {
+            return res.status(400).json({
+              message: "Title and status are required"
+            });
+          }
+          if (typeof id !== "string") {
+  return res.status(400).json({
+    message: "Invalid user ID"
+  });
+}
+          const createTask = await createTaskService({title,description,status,id});
+          return res.status(201).json(createTask);
+  }catch(err){
+    return res.status(500).json({
+      message: "Failed to create task"
+    });
+  }
+}

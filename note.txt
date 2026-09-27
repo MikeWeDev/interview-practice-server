@@ -3,20 +3,12 @@ so lets deign the db
 1.as a user i can create a task
 2.as a user i can update a task 
 3.as a user i can delete the task
------------------------------------------
-entities - user,task
-attribute -user - usernmae,id,password
-           task -disc,title,stustus,createdat,userId
+---------------------------------------------------------------
 
-relationship - user one to many to task 
-             -we use refrance for now 
-        
---------------------------------------------
-route - user.ts - /user
-controller - user.controller.ts- createuser function that accpt body of the user info validate and give to
-service - user.service.ts -createuserservice -stiore the user and res the result
-
---------------------------------------------
-
-
-implemnt 
+ db desing - we arday do it 
+ api deisng - post /task/:id
+ db implmnetation - route - done
+                    controller - http handle - req.pharam and req.body 
+                                               try and catch block call the service function
+                                               serice page add function that accpt those data verify teh 
+                                               user and create teh atsk and reture
