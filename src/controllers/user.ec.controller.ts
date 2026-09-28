@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {createuserService,createproductService,getproductService} from "../services/user.ec.service";
+import {createuserService,createproductService,getproductService,createorderService,getorderService} from "../services/user.ec.service";
 export async function createuser(req:Request,res:Response){
     try{
      const {username,password,role} = req.body;
@@ -69,4 +69,67 @@ export async function getproductController(req:Request,res:Response){
      }
   
 
+}
+
+export async function createorderController(req: Request, res: Response) {
+  try {
+    const { customerId, products, totalAmount, status } = req.body;
+
+    if (
+      !customerId ||
+      !products ||
+      !totalAmount ||
+      !status
+    ) {
+      return res.status(400).json({
+        message: "Missing some fields"
+      });
+    }
+
+    const createOrder = await createorderService({
+      customerId,
+      products,
+      totalAmount,
+      status
+    });
+
+    return res.status(201).json({
+      message: "Order created successfully",
+      data: createOrder
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json({
+      message: "Failed to create order"
+    });
+  }
+}
+
+
+export async function getorderController(req: Request, res: Response) {
+  try {
+    const { customerId } = req.query;
+
+    if (!customerId || typeof customerId !== "string") {
+      return res.status(400).json({
+        message: "Customer ID is required"
+      });
+    }
+
+    const orders = await getorderService(customerId);
+
+    return res.status(200).json({
+      message: "Successfully fetched orders",
+      data: orders
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json({
+      message: "Failed to fetch orders"
+    });
+  }
 }

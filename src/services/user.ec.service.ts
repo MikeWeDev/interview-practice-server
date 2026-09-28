@@ -1,6 +1,6 @@
 import user, { type UserRole } from '../models/user.ec';
 import product from '../models/product'
-
+import order from '../models/order'
 interface CreateUserInput {
     username: string;
     password: string;
@@ -52,4 +52,39 @@ export async function getproductService(){
         throw new Error("dont have any product")
     }
     return getproducts
+}
+
+interface OrderProduct {
+  productId: string;
+  quantity: number;
+  price: number;
+}
+
+export async function createorderService({
+  customerId,
+  products,
+  totalAmount,
+  status
+}: {
+  customerId: string;
+  products: OrderProduct[];
+  totalAmount: number;
+  status: "PENDING" | "PAID" | "SHIPPED" | "DELIVERED" | "CANCELLED";
+}) {
+  const createOrder = await order.create({
+    customerId,
+    products,
+    totalAmount,
+    status
+  });
+
+  return createOrder;
+}
+
+export async function getorderService(customerId: string) {
+  const orders = await order.find({
+    customerId
+  });
+
+  return orders;
 }
