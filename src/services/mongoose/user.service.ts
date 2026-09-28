@@ -1,5 +1,5 @@
-import user from "../models/user"
-import task from "../models/task"
+import user from "../../models/user"
+import task from "../../models/task"
 export  async function createUserService(
   { username, password }: { username: string; password: string }
 ) {
@@ -63,4 +63,21 @@ export async function updateTaskService(
       })
 
   return updateTask
+}
+
+
+
+
+export async function deleteTaskService({id,taskid}:{id:string , taskid:string}){
+     const canDelete = await task.findOne({
+         _id:taskid,
+         userId:id
+     })
+     if(!canDelete){
+       throw new Error ("user cannot delete teh task based on auth problem")
+     }
+     const deletetask= await  task.deleteOne({
+         _id:taskid
+     })
+     return deletetask;
 }

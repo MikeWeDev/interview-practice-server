@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {createUserService,createTaskService,updateTaskService} from "../services/user.service";
+import {createUserService,createTaskService,updateTaskService,deleteTaskService} from "../services/mongoose/user.service";
 
 export  async function createUserController(req: Request, res: Response){
   const { username, password } = req.body;
@@ -18,6 +18,7 @@ export  async function createUserController(req: Request, res: Response){
 
     return res.status(201).json(newUser);
   } catch (error) {
+    console.error(error);
     return res.status(500).json({
       message: "Failed to create user"
     });
@@ -65,7 +66,7 @@ export async function updateTaskController(req:Request,res: Response){
          }
           if (typeof id !== "string" || typeof taskid != "string") {
   return res.status(400).json({
-    message: "Invalid user ID or taskid"
+    message: "Invalid user ID"
   });
 }
          const updatetask= await updateTaskService({title,description,status,id,taskid});
@@ -74,6 +75,32 @@ export async function updateTaskController(req:Request,res: Response){
     console.error(err)
     return res.status(500).json({
       message:"failed to update a task"
+    });
+   }
+
+}
+
+export async function deleteTaskController(req:Request,res: Response){
+
+   try{
+    const {id,taskid} = req.params;
+       
+         if(!id){
+          return res.status(400).json({
+            message:"id is required"
+          })
+         }
+          if (typeof id !== "string" || typeof taskid !="string" ) {
+  return res.status(400).json({
+    message: "Invalid user ID"
+  });
+}
+         const deleteTask= await deleteTaskService({id,taskid});
+         return res.status(200).json(deleteTask);
+   }catch(err){
+    console.error(err)
+    return res.status(500).json({
+      message:"failed to delete a task"
     });
    }
 

@@ -21,3 +21,9 @@ so lets deign the db
                  controller - accpt the updated values from req.body and the id 
                             - verify the datas
                             -call the service
+---------------------------------------------------------------------
+ db desing - done 
+ api desing -  delte / task/id/taskid
+ db implmnetation - route 
+
+ -----------------------------------------
