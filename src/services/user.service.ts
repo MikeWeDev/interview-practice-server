@@ -1,5 +1,5 @@
-import user from "../../models/user"
-import task from "../../models/task"
+import user from "../models/user"
+import task from "../models/task"
 export  async function createUserService(
   { username, password }: { username: string; password: string }
 ) {

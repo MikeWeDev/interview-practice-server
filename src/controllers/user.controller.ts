@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {createUserService,createTaskService,updateTaskService,deleteTaskService} from "../services/mongoose/user.service";
+import {createUserService,createTaskService,updateTaskService,deleteTaskService} from "../services/user.service";
 
 export  async function createUserController(req: Request, res: Response){
   const { username, password } = req.body;
