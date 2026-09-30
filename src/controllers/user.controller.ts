@@ -1,6 +1,10 @@
-import {Request,Response} from "express";
-import {checkstatusService} from '../services/user.service';
-export async function checkstatusController(req:Request, res:Response) {
+import { Request, Response } from "express";
+import { checkstatusService } from "../services/user.service.js";
+
+export async function checkstatusController(
+  req: Request,
+  res: Response
+) {
   try {
     const { username } = req.body;
 
