@@ -8,6 +8,12 @@ export async function checkstatusController(
   try {
     const { username } = req.body;
 
+    if (!username || typeof username !== "string" || !username.trim()) {
+      return res.status(400).json({
+        message: "Username is required"
+      });
+    }
+
     const result = await checkstatusService(username);
 
     return res.status(200).json({
